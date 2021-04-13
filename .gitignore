@@ -6,3 +6,5 @@ build
 .dist
 dist/data
 .zip
+*.zip
+*.exe
