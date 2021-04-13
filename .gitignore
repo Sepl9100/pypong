@@ -4,3 +4,4 @@ build
 *.spec
 .idea
 .dist
+dist/data
