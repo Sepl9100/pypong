@@ -5,6 +5,5 @@ build
 .idea
 .dist
 dist/data
-.zip
 *.zip
 *.exe
