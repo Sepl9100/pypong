@@ -4,6 +4,8 @@ import pygame as pg
 import os
 from threading import *
 import webbrowser
+import random
+from time import sleep
 
 AUTHOR = "Sebastian Reichl"
 VERSION = 2.0
@@ -14,6 +16,7 @@ pg.init()
 APP_ = {
     "GAMECLOCK": pg.time.Clock(),
     "FONT_1": pg.font.SysFont('Bahnschrift', 30),
+    "FONT_2": pg.font.SysFont('Bahnschrift', 17),
     "MAX_FPS": 60,
 }
 

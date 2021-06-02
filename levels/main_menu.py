@@ -4,6 +4,7 @@ from engine.button import *
 from engine.text_box import *
 from engine.ai import *
 from engine.entity import *
+from levels.game_sp import *
 
 
 class MainMenu:
@@ -11,14 +12,18 @@ class MainMenu:
         self.open = True
         self.window = window
         self.click = False
-        self.play_exit = False
 
-        self.button_play = Button(750, 120, 200, 70, "Singleplayer", self, lambda: (self.clear()))
-        self.button_options = Button(750, 250, 200, 70, "Options", self, lambda: (print("Optionen")))
-        self.button_quit = Button(750, 310, 200, 70, "Quit", self, lambda: (self.clear()))
+        self.text_main = TextBox(300, 290, "PyPong 2.0", self)
+        self.text_coming_soon_1 = TextBox(560, 175, "Coming Soon", self)
+        self.text_coming_soon_2 = TextBox(560, 285, "Coming Soon", self)
 
-        self.ai = AI(80, 450, 40, 100, self)
-        self.ai.entity.sprite.fill_image("DATA/textures/test_img_sebif.png", False)
+        self.text_coming_soon_1.sprite.make_invisible()
+        self.text_coming_soon_2.sprite.make_invisible()
+
+        self.button_play = Button(750, 50, 200, 70, "Singleplayer", self, self.game_sp)
+        self.button_play_multi = Button(750, 160, 200, 70, "Multiplayer", self, self.text_coming_soon_1.sprite.make_visible)
+        self.button_highscore = Button(750, 270, 200, 70, "Highscores", self, self.text_coming_soon_2.sprite.make_visible)
+        self.button_quit = Button(750, 380, 200, 70, "Quit", self, self.clear)
 
         self.xoff = 0
         self.yoff = 0
@@ -45,7 +50,8 @@ class MainMenu:
 
     def update(self):
         self.button_play.draw_button(self.mx, self.my)
-        self.button_options.draw_button(self.mx, self.my)
+        self.button_play_multi.draw_button(self.mx, self.my)
+        self.button_highscore.draw_button(self.mx, self.my)
         self.button_quit.draw_button(self.mx, self.my)
 
     def draw(self):
@@ -62,4 +68,7 @@ class MainMenu:
         for layer in RENDERLAYERS:
             layer.clear()
 
+    def game_sp(self):
+        self.clear()
+        Game_SP(self.window)
 

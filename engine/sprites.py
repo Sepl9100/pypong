@@ -23,6 +23,7 @@ class Sprite(pg.sprite.Sprite):
         self.img_path = ""
         self.rendertype = None
         self.scale_to_surface = False
+        self.is_visible = True
 
         self.init2()
 
@@ -47,6 +48,7 @@ class Sprite(pg.sprite.Sprite):
     def delete(self):
         try:
             RENDERLAYERS[self.layer].remove(self)
+            SPRITES.remove(self)
             del self
         except:
             pass
@@ -106,8 +108,17 @@ class Sprite(pg.sprite.Sprite):
                                               int(source_scale[1]*(self.height/source_scale[1]))))
 
 
-    def fill_text(self, text, font):
+    def fill_text(self, text, font, color=COLS["BLACK"]):
         self.rendertype = "text"
-        self.surface = font.render(text, True, COLS["BLACK"])
+        self.text_color = color
+        self.surface = font.render(text, True, self.text_color)
         self.width = self.surface.get_width()
         self.height = self.surface.get_height()
+
+    def make_visible(self):
+        RENDERLAYERS[self.layer].append(self)
+        self.is_visible = True
+
+    def make_invisible(self):
+        RENDERLAYERS[self.layer].remove(self)
+        self.is_visible = False

@@ -40,9 +40,11 @@ class Entity:
             if not self.collider.collide_test():
                 self.collider.rect.x -= xadd
                 self.collider.rect.y -= yadd
+                return False
             else:
                 self.sprite.x += xadd
                 self.sprite.y += yadd
+        return True
 
     def place(self, xdest, ydest):
         if not self.collision:
