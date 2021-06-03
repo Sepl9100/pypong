@@ -116,9 +116,11 @@ class Sprite(pg.sprite.Sprite):
         self.height = self.surface.get_height()
 
     def make_visible(self):
-        RENDERLAYERS[self.layer].append(self)
-        self.is_visible = True
+        if not self.is_visible:
+            RENDERLAYERS[self.layer].append(self)
+            self.is_visible = True
 
     def make_invisible(self):
-        RENDERLAYERS[self.layer].remove(self)
-        self.is_visible = False
+        if self.is_visible:
+            RENDERLAYERS[self.layer].remove(self)
+            self.is_visible = False

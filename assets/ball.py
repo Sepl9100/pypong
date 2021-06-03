@@ -16,6 +16,7 @@ class Ball:
         self.lives = 5
         self.score = 0
         self.v_increase_per_score = 0.5
+        self.half_speed = 8
 
         self.entity = Entity(self.x, self.y, self.radius*2, self.radius*2, self.host)
         self.entity.give_collision()
@@ -43,7 +44,7 @@ class Ball:
                 self.vx = -self.vx
             elif self.entity.collider.last_collider == self.paddle.entity.collider:
                 self.score += 1
-                if abs(self.vx) == 8:
+                if abs(self.vx) == self.half_speed:
                     self.v_increase_per_score /= 2
                 if self.vx < 0:
                     self.vx -= self.v_increase_per_score
@@ -54,3 +55,6 @@ class Ball:
                 elif self.vy > 0:
                     self.vy += self.v_increase_per_score
                 self.vx = -self.vx
+            else:
+                self.vx = -self.vx
+                self.vy = -self.vy

@@ -25,9 +25,12 @@ class MainMenu:
         self.button_quit = Button(750, 380, 200, 70, "Quit", self, self.clear)
 
         self.button_play_normal = Button(750, 50, 200, 70, "Normal", self, lambda: {self.clear(), Game_SP(self.window, 0)})
-        self.button_play_fun = Button(750, 160, 200, 70, "Fun", self, lambda: {self.clear(), Game_SP(self.window, 1)})
+        self.button_play_2balls = Button(750, 160, 200, 70, "2 Balls", self, lambda: {self.clear(), Game_SP(self.window, 1)})
+        self.button_back_1 = Button(750, 380, 200, 70, "Go Back", self, self.main_menu)
+
         self.button_play_normal.make_invisible()
-        self.button_play_fun.make_invisible()
+        self.button_play_2balls.make_invisible()
+        self.button_back_1.make_invisible()
 
 
         self.xoff = 0
@@ -59,7 +62,8 @@ class MainMenu:
         self.button_highscore.draw_button(self.mx, self.my)
         self.button_quit.draw_button(self.mx, self.my)
         self.button_play_normal.draw_button(self.mx, self.my)
-        self.button_play_fun.draw_button(self.mx, self.my)
+        self.button_play_2balls.draw_button(self.mx, self.my)
+        self.button_back_1.draw_button(self.mx, self.my)
 
     def draw(self):
         # reset screen
@@ -79,9 +83,21 @@ class MainMenu:
         self.button_play.make_invisible()
         self.button_play_multi.make_invisible()
         self.button_highscore.make_invisible()
+        self.button_quit.make_invisible()
 
         self.button_play_normal.make_visible()
-        self.button_play_fun.make_visible()
-        #self.clear()
-        #Game_SP(self.window)
+        self.button_play_2balls.make_visible()
+        self.button_back_1.make_visible()
 
+        self.text_coming_soon_1.sprite.make_invisible()
+        self.text_coming_soon_2.sprite.make_invisible()
+
+    def main_menu(self):
+        self.button_play_normal.make_invisible()
+        self.button_play_2balls.make_invisible()
+        self.button_back_1.make_invisible()
+
+        self.button_play.make_visible()
+        self.button_play_multi.make_visible()
+        self.button_highscore.make_visible()
+        self.button_quit.make_visible()

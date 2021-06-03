@@ -48,6 +48,12 @@ class Game_SP:
         self.paddle = Paddle(self.window.height//2, self.border_length, self)
         self.ball = Ball(self.window.width-self.paddle.width*3, random.randint(
                         self.border_length, self.window.height-self.border_length*2), -4, 4, self.borders, self.paddle, self)
+        if self.mode == 1:
+            self.ball2 = Ball(self.paddle.width*3, random.randint(
+                        self.border_length, self.window.height-self.border_length*2), -4, 4, self.borders, self.paddle, self)
+            self.ball.v_increase_per_score = 0.25
+            self.ball2.v_increase_per_score = self.ball.v_increase_per_score
+            self.balls_stop = True
 
         while self.open:
             APP_["GAMECLOCK"].tick(APP_["MAX_FPS"])  # tick the clock
@@ -64,22 +70,10 @@ class Game_SP:
             self.window.update()  # update the window
 
     def update(self):
-        if self.ball.lives > 0:
-            if self.event.type == pg.KEYDOWN:
-                if self.key[pg.K_SPACE]:
-                    self.ball.moving = not self.ball.moving
-            self.paddle_update(self.key)
-            self.ball.update()
-            self.text_top.text = f"Lives: {self.ball.lives} | Score: {self.ball.score} | Velocity: {abs(self.ball.vx)}"
-            self.text_top.apply_changes()
-        else:
-            self.window.screen.fill(("red"))
-            self.text_game_over = TextBox(self.window.width//2.5, self.window.height//2.5, "GAME OVER!", self, APP_["FONT_1"])
-            self.text_game_over.sprite.draw()
-            pg.display.flip()
-            time.sleep(3)
-            self.main_menu()
-
+        if self.mode == 0:
+            self.update_normal()
+        if self.mode == 1:
+            self.update_fun()
 
     def draw(self):
         self.window.screen.fill(("black"))
@@ -105,3 +99,53 @@ class Game_SP:
         if (key_press[pg.K_w] or key_press[pg.K_UP]) and (key_press[pg.K_s] or key_press[pg.K_DOWN]):
             newy = 0
         self.paddle.entity.move(0, newy)
+
+    def update_normal(self):
+        if self.ball.lives > 0:
+            if self.event.type == pg.KEYDOWN:
+                if self.key[pg.K_SPACE]:
+                    self.ball.moving = not self.ball.moving
+            self.paddle_update(self.key)
+            self.ball.update()
+            self.text_top.text = f"Lives: {self.ball.lives} | Score: {self.ball.score} | Velocity: {abs(self.ball.vx)}"
+            self.text_top.apply_changes()
+        else:
+            self.window.screen.fill(("red"))
+            self.text_game_over = TextBox(self.window.width//2.5, self.window.height//2.5, "GAME OVER!", self, APP_["FONT_1"])
+            self.text_game_over.sprite.draw()
+            pg.display.flip()
+            time.sleep(3)
+            self.main_menu()
+
+    def update_fun(self):
+        if self.ball.lives + self.ball2.lives > 0:
+            if self.event.type == pg.KEYDOWN:
+                if self.key[pg.K_SPACE]:
+                    if self.balls_stop:
+                        self.balls_stop = False
+                    else:
+                        self.ball.moving = False
+                        self.ball2.moving = False
+                        self.balls_stop = True
+            if not self.balls_stop:
+                self.ball.moving = True
+                self.ball2.moving = True
+
+            if abs(self.ball.vx) >= 8:
+                self.ball.v_increase_per_score = 0
+            if abs(self.ball2.vx) >= 8:
+                self.ball2.v_increase_per_score = 0
+
+            self.paddle_update(self.key)
+            self.ball.update()
+            self.ball2.update()
+            self.text_top.text = f"Lives: {self.ball.lives+self.ball2.lives} | Score: {self.ball.score+self.ball2.score}" \
+                                 f" | Velocity Ball 1: {abs(self.ball.vx)} | Velocity Ball 2: {abs(self.ball2.vx)}"
+            self.text_top.apply_changes()
+        else:
+            self.window.screen.fill(("red"))
+            self.text_game_over = TextBox(self.window.width//2.5, self.window.height//2.5, "GAME OVER!", self, APP_["FONT_1"])
+            self.text_game_over.sprite.draw()
+            pg.display.flip()
+            time.sleep(3)
+            self.main_menu()
