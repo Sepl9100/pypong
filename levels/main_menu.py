@@ -13,10 +13,9 @@ class MainMenu:
         self.window = window
         self.click = False
 
-        self.text_main = TextBox(300, 290, "PyPong 2.0", self)
+        self.text_main = TextBox(300, 290, "PyPong 2.1", self)
         self.text_coming_soon_1 = TextBox(560, 175, "Coming Soon", self)
         self.text_coming_soon_2 = TextBox(560, 285, "Coming Soon", self)
-
         self.text_coming_soon_1.sprite.make_invisible()
         self.text_coming_soon_2.sprite.make_invisible()
 
@@ -24,6 +23,12 @@ class MainMenu:
         self.button_play_multi = Button(750, 160, 200, 70, "Multiplayer", self, self.text_coming_soon_1.sprite.make_visible)
         self.button_highscore = Button(750, 270, 200, 70, "Highscores", self, self.text_coming_soon_2.sprite.make_visible)
         self.button_quit = Button(750, 380, 200, 70, "Quit", self, self.clear)
+
+        self.button_play_normal = Button(750, 50, 200, 70, "Normal", self, lambda: {self.clear(), Game_SP(self.window, 0)})
+        self.button_play_fun = Button(750, 160, 200, 70, "Fun", self, lambda: {self.clear(), Game_SP(self.window, 1)})
+        self.button_play_normal.make_invisible()
+        self.button_play_fun.make_invisible()
+
 
         self.xoff = 0
         self.yoff = 0
@@ -53,6 +58,8 @@ class MainMenu:
         self.button_play_multi.draw_button(self.mx, self.my)
         self.button_highscore.draw_button(self.mx, self.my)
         self.button_quit.draw_button(self.mx, self.my)
+        self.button_play_normal.draw_button(self.mx, self.my)
+        self.button_play_fun.draw_button(self.mx, self.my)
 
     def draw(self):
         # reset screen
@@ -69,6 +76,12 @@ class MainMenu:
             layer.clear()
 
     def game_sp(self):
-        self.clear()
-        Game_SP(self.window)
+        self.button_play.make_invisible()
+        self.button_play_multi.make_invisible()
+        self.button_highscore.make_invisible()
+
+        self.button_play_normal.make_visible()
+        self.button_play_fun.make_visible()
+        #self.clear()
+        #Game_SP(self.window)
 

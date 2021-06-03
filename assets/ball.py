@@ -43,7 +43,7 @@ class Ball:
                 self.vx = -self.vx
             elif self.entity.collider.last_collider == self.paddle.entity.collider:
                 self.score += 1
-                if abs(self.vx) == 10:
+                if abs(self.vx) == 8:
                     self.v_increase_per_score /= 2
                 if self.vx < 0:
                     self.vx -= self.v_increase_per_score

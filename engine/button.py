@@ -14,6 +14,7 @@ class Button:
         self.host = host
         self.clicked = False
         self.layer = 100
+        self.is_visible = True
 
         self.colored = True
         self.click_color = COLS["CLICK"]
@@ -38,19 +39,19 @@ class Button:
         self.add_text(self.text)
 
     def draw_button(self, mx, my):
-        if self.sprite.rect.collidepoint((mx, my)):
-            if pg.mouse.get_pressed()[0] == 1:
-                self.clicked = True
-                self.click_sprite()
-            elif pg.mouse.get_pressed()[0] == 0 and self.clicked:
-                self.clicked = False
-                self.function()
+        if self.is_visible:
+            if self.sprite.rect.collidepoint((mx, my)):
+                if pg.mouse.get_pressed()[0] == 1:
+                    self.clicked = True
+                    self.click_sprite()
+                elif pg.mouse.get_pressed()[0] == 0 and self.clicked:
+                    self.clicked = False
+                    self.function()
+                else:
+                    self.hover_sprite()
             else:
-                self.hover_sprite()
-        else:
-            self.button_sprite()
-            self.clicked = False
-
+                self.button_sprite()
+                self.clicked = False
 
     def add_text(self, text):
         self.text = text
@@ -97,3 +98,21 @@ class Button:
             del self
         except:
             pass
+
+    def make_invisible(self):
+        self.shader1.make_invisible()
+        self.shader2.make_invisible()
+        self.shader3.make_invisible()
+        self.shader4.make_invisible()
+        self.sprite.make_invisible()
+        self.text_sprite.make_invisible()
+        self.is_visible = False
+
+    def make_visible(self):
+        self.sprite.make_visible()
+        self.shader1.make_visible()
+        self.shader2.make_visible()
+        self.shader3.make_visible()
+        self.shader4.make_visible()
+        self.text_sprite.make_visible()
+        self.is_visible = True

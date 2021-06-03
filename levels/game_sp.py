@@ -12,9 +12,10 @@ import levels.main_menu
 
 
 class Game_SP:
-    def __init__(self, window):
+    def __init__(self, window, mode):
         self.open = True
         self.window = window
+        self.mode = mode    # 0 = normal, 1 = fun
 
         self.xoff = 0
         self.yoff = 0
@@ -67,7 +68,7 @@ class Game_SP:
             if self.event.type == pg.KEYDOWN:
                 if self.key[pg.K_SPACE]:
                     self.ball.moving = not self.ball.moving
-            self.paddle.update(self.key)
+            self.paddle_update(self.key)
             self.ball.update()
             self.text_top.text = f"Lives: {self.ball.lives} | Score: {self.ball.score} | Velocity: {abs(self.ball.vx)}"
             self.text_top.apply_changes()
@@ -94,3 +95,13 @@ class Game_SP:
     def main_menu(self):
         self.clear()
         levels.main_menu.MainMenu(self.window)
+
+    def paddle_update(self, key_press):
+        newy = 0
+        if key_press[pg.K_w] or key_press[pg.K_UP]:
+            newy -= 13
+        if key_press[pg.K_s] or key_press[pg.K_DOWN]:
+            newy += 13
+        if (key_press[pg.K_w] or key_press[pg.K_UP]) and (key_press[pg.K_s] or key_press[pg.K_DOWN]):
+            newy = 0
+        self.paddle.entity.move(0, newy)

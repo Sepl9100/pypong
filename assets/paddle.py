@@ -14,13 +14,4 @@ class Paddle:
         self.entity.give_collision()
         self.entity.sprite.fill_color(COLS["WHITE"])
 
-    def update(self, key_press):
-        newy = 0
-        if key_press[pg.K_w] or key_press[pg.K_UP]:
-            newy -= 10
-        if key_press[pg.K_s] or key_press[pg.K_DOWN]:
-            newy += 10
-        if (key_press[pg.K_w] or key_press[pg.K_UP]) and (key_press[pg.K_s] or key_press[pg.K_DOWN]):
-            newy = 0
-        self.entity.move(0, newy)
 
