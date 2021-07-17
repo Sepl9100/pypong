@@ -54,6 +54,7 @@ class Game_SP:
             self.ball.v_increase_per_score = 0.25
             self.ball2.v_increase_per_score = self.ball.v_increase_per_score
             self.balls_stop = True
+            self.reached_endgame = False
 
         while self.open:
             APP_["GAMECLOCK"].tick(APP_["MAX_FPS"])  # tick the clock
@@ -131,10 +132,23 @@ class Game_SP:
                 self.ball.moving = True
                 self.ball2.moving = True
 
-            if abs(self.ball.vx) >= 8:
-                self.ball.v_increase_per_score = 0
-            if abs(self.ball2.vx) >= 8:
-                self.ball2.v_increase_per_score = 0
+            if not self.reached_endgame:
+                if abs(self.ball.vx) >= 8:
+                    self.ball.v_increase_per_score = 0
+                if abs(self.ball2.vx) >= 8:
+                    self.ball2.v_increase_per_score = 0
+                if abs(self.ball.vx) >= 8 and abs(self.ball2.vx) >= 8:
+                    self.reached_endgame = True
+            else:
+                if abs(self.ball.vx) >= 8:
+                    self.ball.v_increase_per_score = -0.5
+                if abs(self.ball2.vx) >= 8:
+                    self.ball2.v_increase_per_score = -0.5
+                if abs(self.ball.vx) <= 7:
+                    self.ball.v_increase_per_score = 0.5
+                if abs(self.ball2.vx) <= 7:
+                    self.ball2.v_increase_per_score = 0.5
+
 
             self.paddle_update(self.key)
             self.ball.update()

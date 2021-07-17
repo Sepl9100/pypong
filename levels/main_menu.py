@@ -4,6 +4,7 @@ from engine.button import *
 from engine.text_box import *
 from engine.ai import *
 from engine.entity import *
+from engine.text_input import *
 from levels.game_sp import *
 
 
@@ -13,15 +14,13 @@ class MainMenu:
         self.window = window
         self.click = False
 
-        self.text_main = TextBox(300, 290, "PyPong 2.1", self)
-        self.text_coming_soon_1 = TextBox(560, 175, "Coming Soon", self)
-        self.text_coming_soon_2 = TextBox(560, 285, "Coming Soon", self)
+        self.text_main = TextBox(300, 290, f"PyPong {VERSION}", self)
+        self.text_coming_soon_1 = TextBox(560, 285, "Coming Soon", self)
         self.text_coming_soon_1.sprite.make_invisible()
-        self.text_coming_soon_2.sprite.make_invisible()
 
         self.button_play = Button(750, 50, 200, 70, "Singleplayer", self, self.game_sp)
-        self.button_play_multi = Button(750, 160, 200, 70, "Multiplayer", self, self.text_coming_soon_1.sprite.make_visible)
-        self.button_highscore = Button(750, 270, 200, 70, "Highscores", self, self.text_coming_soon_2.sprite.make_visible)
+        self.button_play_multi = Button(750, 160, 200, 70, "Multiplayer", self, lambda: print("cock"))
+        self.button_highscore = Button(750, 270, 200, 70, "Highscores", self, self.text_coming_soon_1.sprite.make_visible)
         self.button_quit = Button(750, 380, 200, 70, "Quit", self, self.clear)
 
         self.button_play_normal = Button(750, 50, 200, 70, "Normal", self, lambda: {self.clear(), Game_SP(self.window, 0)})
@@ -90,7 +89,6 @@ class MainMenu:
         self.button_back_1.make_visible()
 
         self.text_coming_soon_1.sprite.make_invisible()
-        self.text_coming_soon_2.sprite.make_invisible()
 
     def main_menu(self):
         self.button_play_normal.make_invisible()
@@ -101,3 +99,6 @@ class MainMenu:
         self.button_play_multi.make_visible()
         self.button_highscore.make_visible()
         self.button_quit.make_visible()
+
+    def game_mp(self):
+        pass
