@@ -11,6 +11,7 @@ class TextInputBox:
         self.host = host
         self.text = ""
         self.is_visible = True
+        self.char_count = 0
 
         self.text_box = TextBox(self.x, self.y, self.text, self.host)
         self.text_box.width = width
@@ -37,8 +38,17 @@ class TextInputBox:
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_BACKSPACE:
                         self.text = self.text[:-1]
-                        self.text_box.text = self.text
-                        self.text_box.apply_changes()
+                    elif event.key == pg.K_RETURN:
+                        self.active = False
+                    elif event.key == pg.K_DELETE:
+                        self.text = ""
+                    else:
+                        self.text += event.unicode
+                self.char_count = len(self.text)
+                if self.char_count * 15.5 > self.width:
+                    self.text = self.text[:-1]
+                self.text_box.text = self.text
+                self.text_box.apply_changes()
             else:
                 self.bg1_sprite.fill_color(COLS["BLACK"])
 
