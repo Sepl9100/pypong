@@ -45,7 +45,7 @@ class TextInputBox:
                     else:
                         self.text += event.unicode
                 self.char_count = len(self.text)
-                if self.char_count * 15.5 > self.width:
+                if self.char_count * 15.4 > self.width:
                     self.text = self.text[:-1]
                 self.text_box.text = self.text
                 self.text_box.apply_changes()

@@ -6,6 +6,7 @@ from engine.ai import *
 from engine.entity import *
 from engine.text_input import *
 from levels.game_sp import *
+from levels.game_mp_local import *
 
 
 class MainMenu:
@@ -27,15 +28,16 @@ class MainMenu:
         self.button_play_2balls = Button(750, 160, 200, 70, "2 Balls", self, lambda: {self.clear(), Game_SP(self.window, 1)})
         self.button_back_1 = Button(750, 380, 200, 70, "Go Back", self, self.main_menu)
 
-        self.text_input_test = TextInputBox(750, 50, 200, self)
-        self.text_input_test.text = "Konst stinkt"
-        self.text_input_test.forcetext_update()
-        self.text_input_test.make_invisible()
+        self.button_play_local_pvp = Button(750, 50, 200, 70, "Local PvP", self,
+                                            lambda: {self.clear(), Game_MP_local(self.window)})
+        self.button_play_online_pvp = Button(750, 160, 200, 70, "Online PvP", self, lambda: print("online"))
 
         self.button_play_normal.make_invisible()
         self.button_play_2balls.make_invisible()
         self.button_back_1.make_invisible()
 
+        self.button_play_local_pvp.make_invisible()
+        self.button_play_online_pvp.make_invisible()
 
         self.xoff = 0
         self.yoff = 0
@@ -68,7 +70,8 @@ class MainMenu:
         self.button_play_normal.draw_button(self.mx, self.my)
         self.button_play_2balls.draw_button(self.mx, self.my)
         self.button_back_1.draw_button(self.mx, self.my)
-        self.text_input_test.update(self.event, self.mx, self.my)
+        self.button_play_local_pvp.draw_button(self.mx, self.my)
+        self.button_play_online_pvp.draw_button(self.mx, self.my)
 
     def draw(self):
         # reset screen
@@ -100,7 +103,10 @@ class MainMenu:
         self.button_play_normal.make_invisible()
         self.button_play_2balls.make_invisible()
         self.button_back_1.make_invisible()
-        self.text_input_test.make_invisible()
+
+        self.button_play_local_pvp.make_invisible()
+        self.button_play_online_pvp.make_invisible()
+
 
         self.button_play.make_visible()
         self.button_play_multi.make_visible()
@@ -112,8 +118,8 @@ class MainMenu:
         self.button_play_multi.make_invisible()
         self.button_highscore.make_invisible()
         self.button_quit.make_invisible()
-
-        self.text_input_test.make_visible()
-        self.button_back_1.make_visible()
-
         self.text_coming_soon_1.sprite.make_invisible()
+
+        self.button_back_1.make_visible()
+        self.button_play_local_pvp.make_visible()
+        self.button_play_online_pvp.make_visible()
