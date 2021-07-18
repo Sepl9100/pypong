@@ -28,9 +28,9 @@ class MainMenu:
         self.button_back_1 = Button(750, 380, 200, 70, "Go Back", self, self.main_menu)
 
         self.text_input_test = TextInputBox(750, 50, 200, self)
-        self.text_input_test.text_box.text = "Inder"
+        self.text_input_test.text_box.text = "Hasi"
         self.text_input_test.text_box.apply_changes()
-        self.text_input_test.text_box.sprite.make_invisible()
+        self.text_input_test.make_invisible()
 
         self.button_play_normal.make_invisible()
         self.button_play_2balls.make_invisible()
@@ -99,6 +99,7 @@ class MainMenu:
         self.button_play_normal.make_invisible()
         self.button_play_2balls.make_invisible()
         self.button_back_1.make_invisible()
+        self.text_input_test.make_invisible()
 
         self.button_play.make_visible()
         self.button_play_multi.make_visible()
@@ -111,6 +112,7 @@ class MainMenu:
         self.button_highscore.make_invisible()
         self.button_quit.make_invisible()
 
+        self.text_input_test.make_visible()
         self.button_back_1.make_visible()
 
         self.text_coming_soon_1.sprite.make_invisible()
