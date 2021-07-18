@@ -28,8 +28,8 @@ class MainMenu:
         self.button_back_1 = Button(750, 380, 200, 70, "Go Back", self, self.main_menu)
 
         self.text_input_test = TextInputBox(750, 50, 200, self)
-        self.text_input_test.text_box.text = "Hasi"
-        self.text_input_test.text_box.apply_changes()
+        self.text_input_test.text = "Konst stinkt"
+        self.text_input_test.forcetext_update()
         self.text_input_test.make_invisible()
 
         self.button_play_normal.make_invisible()
@@ -68,6 +68,7 @@ class MainMenu:
         self.button_play_normal.draw_button(self.mx, self.my)
         self.button_play_2balls.draw_button(self.mx, self.my)
         self.button_back_1.draw_button(self.mx, self.my)
+        self.text_input_test.update(self.event, self.mx, self.my)
 
     def draw(self):
         # reset screen
