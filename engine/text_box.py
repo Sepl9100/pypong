@@ -6,6 +6,8 @@ class TextBox:
     def __init__(self, x, y, text, host, font=APP_["FONT_1"], color=COLS["BLACK"]):
         self.x = x
         self.y = y
+        self.width = 1
+        self.height = 1
         self.text = text
         self.host = host
         self.layer = 105

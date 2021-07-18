@@ -19,13 +19,18 @@ class MainMenu:
         self.text_coming_soon_1.sprite.make_invisible()
 
         self.button_play = Button(750, 50, 200, 70, "Singleplayer", self, self.game_sp)
-        self.button_play_multi = Button(750, 160, 200, 70, "Multiplayer", self, lambda: print("cock"))
+        self.button_play_multi = Button(750, 160, 200, 70, "Multiplayer", self, self.game_mp)
         self.button_highscore = Button(750, 270, 200, 70, "Highscores", self, self.text_coming_soon_1.sprite.make_visible)
         self.button_quit = Button(750, 380, 200, 70, "Quit", self, self.clear)
 
         self.button_play_normal = Button(750, 50, 200, 70, "Normal", self, lambda: {self.clear(), Game_SP(self.window, 0)})
         self.button_play_2balls = Button(750, 160, 200, 70, "2 Balls", self, lambda: {self.clear(), Game_SP(self.window, 1)})
         self.button_back_1 = Button(750, 380, 200, 70, "Go Back", self, self.main_menu)
+
+        self.text_input_test = TextInputBox(750, 50, 200, self)
+        self.text_input_test.text_box.text = "Inder"
+        self.text_input_test.text_box.apply_changes()
+        self.text_input_test.text_box.sprite.make_invisible()
 
         self.button_play_normal.make_invisible()
         self.button_play_2balls.make_invisible()
@@ -101,4 +106,11 @@ class MainMenu:
         self.button_quit.make_visible()
 
     def game_mp(self):
-        pass
+        self.button_play.make_invisible()
+        self.button_play_multi.make_invisible()
+        self.button_highscore.make_invisible()
+        self.button_quit.make_invisible()
+
+        self.button_back_1.make_visible()
+
+        self.text_coming_soon_1.sprite.make_invisible()
