@@ -1,3 +1,4 @@
+import selectors
 import time
 import threading
 
@@ -78,7 +79,7 @@ class Game_MP_local:
                 if self.key[pg.K_SPACE]:
                     self.ball.moving = not self.ball.moving
             self.paddle_update(self.key)
-            #self.update_ball()
+            self.update_ball()
             self.text_top_mid.text = f"Ball Velocity: {abs(self.ball.vx)}"
             self.text_top_mid.apply_changes()
             self.text_top_left.text = f"Player 1 - Lives: {self.lives_p1} | Score: {self.score_p1}"
@@ -109,13 +110,34 @@ class Game_MP_local:
         if key_press[pg.K_UP] and key_press[pg.K_DOWN]:
             p2_newy = 0
 
-
         self.paddle_left.entity.move(0, p1_newy)
         self.paddle_right.entity.move(0, p2_newy)
 
 
-
-
     def update_ball(self):
+        replace = False
+        score = False
         if not self.ball.moving:
             return
+        if self.ball.entity.rect.x + self.ball.radius * 2 > 1000 - self.paddle_right.width:
+            self.lives_p2 -= 1
+            replace = True
+        elif self.ball.entity.rect.x + self.ball.radius * 2 < 0 + self.paddle_left.width:
+            self.lives_p1 -= 1
+            replace = True
+        elif not self.ball.entity.move(round(self.ball.vx), round(self.ball.vy)):
+            if self.ball.entity.collider.last_collider == self.border_top.collider:
+                self.ball.vy = - self.ball.vy
+            elif self.ball.entity.collider.last_collider == self.border_bottom.collider:
+                self.ball.vy = - self.ball.vy
+            elif self.ball.entity.collider.last_collider == self.paddle_right.entity.collider:
+                self.ball.vx = - self.ball.vx
+            elif self.ball.entity.collider.last_collider == self.paddle_left.entity.collider:
+                self.ball.vx = - self.ball.vx
+
+
+        if replace:
+            self.ball.moving = False
+            self.ball.vx = - self.ball.vx
+            self.ball.vy = - self.ball.vy
+            self.ball.entity.place(self.window.width // 2, self.window.height // 2)
