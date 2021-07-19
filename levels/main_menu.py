@@ -45,6 +45,7 @@ class MainMenu:
         self.multiplayer_menu_items = [self.button_play_local_pvp, self.button_play_online_pvp, self.text_online_info1,
                            self.text_online_info2, self.button_back_1]
 
+        self.ui_items = [self.main_menu_items, self.singleplayer_menu_items, self.multiplayer_menu_items]
 
         self.xoff = 0
         self.yoff = 0
