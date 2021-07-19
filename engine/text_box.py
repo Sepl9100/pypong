@@ -28,3 +28,8 @@ class TextBox:
         except:
             pass
 
+    def make_invisible(self):
+        self.sprite.make_invisible()
+
+    def make_visible(self):
+        self.sprite.make_visible()
