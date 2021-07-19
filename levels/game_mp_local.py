@@ -46,10 +46,9 @@ class Game_MP_local:
                                    "Controls: Player 1: w/s - Player 2: arrow up/down - start/pause with space",
                                    self, APP_["FONT_2"])
 
+        self.paddle_right = Paddle(self.window.height // 2, self.border_length, self)
         self.paddle_left = Paddle(self.window.height//2, self.border_length, self)
-        self.paddle_left.entity.x = 0
-        self.paddle_left.entity.sprite.x = self.paddle_left.entity.x
-        self.paddle_right = Paddle(self.window.height//2, self.border_length, self)
+        self.paddle_left.entity.place(0, self.window.height//2-self.paddle_left.height//2)
         self.paddles = [self.paddle_left, self.paddle_right]
 
         self.ball = Ball(self.window.width//2, self.window.height//2, 4, 4, self.borders, self.paddle_right, self)
@@ -109,8 +108,11 @@ class Game_MP_local:
             p1_newy = 0
         if key_press[pg.K_UP] and key_press[pg.K_DOWN]:
             p2_newy = 0
+
+
         self.paddle_left.entity.move(0, p1_newy)
         self.paddle_right.entity.move(0, p2_newy)
+
 
 
 
