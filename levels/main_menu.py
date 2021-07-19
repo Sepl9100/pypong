@@ -86,6 +86,9 @@ class MainMenu:
         self.open = False
         for layer in RENDERLAYERS:
             layer.clear()
+        ENTITIES.clear()
+        AIS.clear()
+        COLLIDERS.clear()
 
     def game_sp(self):
         self.button_play.make_invisible()
