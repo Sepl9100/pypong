@@ -8,7 +8,7 @@ import random
 from time import sleep
 
 AUTHOR = "Sebastian Reichl"
-VERSION = 2.2
+VERSION = 2.3
 
 pg.init()
 
