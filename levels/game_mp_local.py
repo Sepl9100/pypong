@@ -158,7 +158,7 @@ class Game_MP_local:
         if self.ball.entity.rect.x + self.ball.radius * 2 > 1000 - self.paddle_right.width:
             self.lives_p2 -= 1
             replace = True
-        elif self.ball.entity.rect.x + self.ball.radius * 2 < 0 + self.paddle_left.width:
+        elif self.ball.entity.rect.x < self.paddle_left.width:
             self.lives_p1 -= 1
             replace = True
         elif not self.ball.entity.move(round(self.ball.vx), round(self.ball.vy)):
