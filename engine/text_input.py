@@ -28,7 +28,7 @@ class TextInputBox:
     def update(self, event, mx, my):
         if self.is_visible:
             if pg.mouse.get_pressed()[0] == 1:
-                if self.bg2_sprite.rect.collidepoint((mx, my)):
+                if self.bg1_sprite.rect.collidepoint((mx, my)):
                     self.active = True
                 else:
                     self.active = False
