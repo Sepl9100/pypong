@@ -7,6 +7,7 @@ from engine.entity import *
 from engine.text_input import *
 from levels.game_sp import *
 from levels.game_mp_local import *
+from levels.options import *
 
 
 class MainMenu:
@@ -20,7 +21,7 @@ class MainMenu:
         self.text_coming_soon_1.sprite.make_invisible()
         self.text_coming_soon_2 = TextBox(560, 175, "Coming Soon", self)
         self.text_coming_soon_2.sprite.make_invisible()
-        self.button_options = Button(10, 10, 150, 60, "Options", self, lambda: print("Optionen"))
+        self.button_options = Button(10, 10, 150, 60, "Options", self, lambda: {self.clear(), Options(self.window)})
 
         # Main Menu
         self.button_play = Button(750, 50, 200, 70, "Singleplayer", self, self.game_sp)

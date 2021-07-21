@@ -6,6 +6,7 @@ from threading import *
 import webbrowser
 import random
 from time import sleep
+import pickle
 
 AUTHOR = "Sebastian Reichl"
 VERSION = 2.3
@@ -26,7 +27,10 @@ COLS = {
     "BUTTON": (255, 0, 0),
     "HOVER": (75, 225, 255),
     "CLICK": (50, 150, 255),
-    "CYAN": (0, 255, 255)
+    "CYAN": (0, 255, 255),
+    "GREEN": (0, 255, 0),
+    "RED": (255, 0, 0),
+    "BLUE": (0, 0, 255)
 }
 
 TEXT = [{}]
@@ -35,6 +39,8 @@ GAME = {
     "GAME": {}
 }
 
+with open("DATA/userdata.ksv", "rb") as file:
+    USERDATA = pickle.load(file)
 
 # create Render Layers
 RENDERLAYERS = []
@@ -49,6 +55,14 @@ SPRITES = []
 
 AIS = []
 
-
+'''
+USERDATA = {
+    "MOUSE": False,
+    "PADDLE_COL": COLS["WHITE"],
+    "USERNAME": "Player"
+}
+with open("DATA/userdata.ksv", "wb") as file:
+    pickle.dump(USERDATA, file, pickle.HIGHEST_PROTOCOL)
+'''
 
 
