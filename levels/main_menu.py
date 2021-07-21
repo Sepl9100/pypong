@@ -51,11 +51,7 @@ class MainMenu:
         self.xoff = 0
         self.yoff = 0
         self.main_menu()
-        bg = "DATA/textures/living_room.png"
-        source_scale = get_scale(bg)
-        img = pg.image.load(bg).convert_alpha()
-        self.background = pg.transform.scale(img, (int(source_scale[0]*(self.window.width/source_scale[0])),
-                                              int(source_scale[1]*(self.window.height/source_scale[1]))))
+
 
         while self.open:    # starting the menu loop
             APP_["GAMECLOCK"].tick(APP_["MAX_FPS"])  # tick the clock
@@ -86,7 +82,7 @@ class MainMenu:
     def draw(self):
         # reset screen
         self.window.screen.fill(("black"))
-        self.window.screen.blit(self.background, (0, 0))
+        self.window.screen.blit(BACKGROUNDS["MAIN_MENU"], (0, 0))
         # draw all sprites
         for layer in RENDERLAYERS:
             for sprite in layer:
@@ -94,12 +90,8 @@ class MainMenu:
 
     def clear(self):                        # stop the game loop and clear all render layers
         self.open = False
-        for layer in RENDERLAYERS:
-            layer.clear()
-        ENTITIES.clear()
-        AIS.clear()
-        COLLIDERS.clear()
-
+        clear_lists()
+        
     def game_sp(self):
         self.text_coming_soon_1.make_invisible()
         self.text_coming_soon_2.make_invisible()

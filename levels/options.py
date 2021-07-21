@@ -15,13 +15,9 @@ class Options:
         self.window = window
         self.xoff = 0
         self.yoff = 0
-        bg = "DATA/textures/mountain_bg.png"
-        source_scale = get_scale(bg)
-        img = pg.image.load(bg).convert_alpha()
-        self.background = pg.transform.scale(img, (int(source_scale[0] * (self.window.width / source_scale[0])),
-                                                   int(source_scale[1] * (self.window.height / source_scale[1]))))
 
         self.button_options = Button(10, 10, 150, 60, "Main Menu", self, lambda: {self.clear(), levels.main_menu.MainMenu(self.window)})
+
 
         while self.open:  # starting the menu loop
             APP_["GAMECLOCK"].tick(APP_["MAX_FPS"])  # tick the clock
@@ -43,18 +39,14 @@ class Options:
 
     def draw(self):
         self.window.screen.fill(("black"))
-        self.window.screen.blit(self.background, (0, 0))
+        self.window.screen.blit(BACKGROUNDS["OPTIONS"], (0, 0))
         for layer in RENDERLAYERS:
             for sprite in layer:
                 sprite.draw()
 
     def clear(self):
         self.open = False
-        for layer in RENDERLAYERS:
-            layer.clear()
-        ENTITIES.clear()
-        AIS.clear()
-        COLLIDERS.clear()
+        clear_lists()
 
 
 

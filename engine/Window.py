@@ -26,3 +26,9 @@ class Window:
         pg.display.set_caption(f"FPS: {round(APP_['GAMECLOCK'].get_fps(), 1)} - PyPong {VERSION} by {AUTHOR}")
         pg.display.flip()
 
+
+    def load_background(self, path):
+        source_scale = get_scale(path)
+        img = pg.image.load(path).convert_alpha()
+        return pg.transform.scale(img, (int(source_scale[0]*(self.width/source_scale[0])),
+                                              int(source_scale[1]*(self.height/source_scale[1]))))

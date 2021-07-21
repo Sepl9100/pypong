@@ -18,7 +18,14 @@ APP_ = {
     "GAMECLOCK": pg.time.Clock(),
     "FONT_1": pg.font.SysFont('Bahnschrift', 30),
     "FONT_2": pg.font.SysFont('Bahnschrift', 17),
-    "MAX_FPS": 60,
+    "MAX_FPS": 60
+}
+
+BACKGROUNDS = {
+    "MAIN_MENU_PATH": "DATA/textures/living_room.png",
+    "MAIN_MENU": None,
+    "OPTIONS_PATH": "DATA/textures/mountain_bg.png",
+    "OPTIONS": None
 }
 
 COLS = {
@@ -55,6 +62,8 @@ SPRITES = []
 
 AIS = []
 
+SINGLE_LISTS = [ENTITIES, SPRITES, AIS]
+
 '''
 USERDATA = {
     "MOUSE": False,
@@ -66,3 +75,12 @@ with open("DATA/userdata.ksv", "wb") as file:
 '''
 
 
+def clear_lists():
+    for layer in RENDERLAYERS:
+        for sprite in layer:
+            del sprite
+        layer.clear()
+    for list in SINGLE_LISTS:
+        for item in list:
+            del item
+        list.clear()

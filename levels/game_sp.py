@@ -84,11 +84,7 @@ class Game_SP:
 
     def clear(self):
         self.open = False
-        for layer in RENDERLAYERS:
-            layer.clear()
-        ENTITIES.clear()
-        AIS.clear()
-        COLLIDERS.clear()
+        clear_lists()
 
     def main_menu(self):
         self.clear()
