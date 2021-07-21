@@ -21,13 +21,14 @@ class MainMenu:
         self.text_coming_soon_1.sprite.make_invisible()
         self.text_coming_soon_2 = TextBox(560, 175, "Coming Soon", self)
         self.text_coming_soon_2.sprite.make_invisible()
-        self.button_options = Button(10, 10, 150, 60, "Options", self, lambda: {self.clear(), Options(self.window)})
+        self.button_options = Button(10, 10, 150, 60, "Options", self, lambda: {clear_lists(), Options(self.window),
+                                                                                self.__init__(self.window)})
 
         # Main Menu
         self.button_play = Button(750, 50, 200, 70, "Singleplayer", self, self.game_sp)
         self.button_play_multi = Button(750, 160, 200, 70, "Multiplayer", self, self.game_mp)
         self.button_highscore = Button(750, 270, 200, 70, "Highscores", self, self.text_coming_soon_1.sprite.make_visible)
-        self.button_quit = Button(750, 380, 200, 70, "Quit", self, self.clear)
+        self.button_quit = Button(750, 380, 200, 70, "Quit", self, self.quit_game)
         self.main_menu_items = [self.button_play, self.button_play_multi, self.button_highscore, self.button_quit]
 
         # Singleplayer
@@ -61,7 +62,7 @@ class MainMenu:
             self.key = pg.key.get_pressed()
 
             if self.event.type == pg.QUIT:
-                self.open = False
+                self.quit_game()
 
             self.update()  # update the game
             self.draw()  # draw the menu
@@ -119,3 +120,8 @@ class MainMenu:
             item.make_invisible()
         for item in self.multiplayer_menu_items:
             item.make_visible()
+
+    def quit_game(self):
+        self.clear()
+        with open("DATA/userdata.ksv", "wb") as file:
+            pickle.dump(USERDATA, file, pickle.HIGHEST_PROTOCOL)
