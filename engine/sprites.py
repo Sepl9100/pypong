@@ -8,7 +8,7 @@ def get_scale(path):  # Function to get x and y scale of a given picture
 
 
 class Sprite(pg.sprite.Sprite):
-    def __init__(self, x, y, width, height, host, sp_id, layer=0):
+    def __init__(self, x, y, width, height, host, sp_id, layer=10):
         pg.sprite.Sprite.__init__(self)
         self.host = host
         self.id = sp_id

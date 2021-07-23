@@ -44,8 +44,8 @@ class Game_MP_local:
         self.text_top_mid = TextBox(0, 0, "Ball Velocity: 0", self, APP_["FONT_2"])
         self.text_top_mid.sprite.x = self.window.width // 2 - self.text_top_mid.sprite.width // 2
         self.text_bottom = TextBox(self.border_length, self.window.height - self.border_length - 1,
-                                   "Controls: Player 1: w/s - Player 2: arrow up/down - start/pause with space",
-                                   self, APP_["FONT_2"])
+                                   "Controls: Player 1: w/s - Player 2: arrow up/down - start/pause with space"
+                                   " - exit to main menu with ESC", self, APP_["FONT_2"])
 
         self.paddle_right = Paddle(self.window.height // 2, self.border_length, self)
         self.paddle_left = Paddle(self.window.height//2, self.border_length, self)
@@ -74,7 +74,7 @@ class Game_MP_local:
             self.key = pg.key.get_pressed()
 
             if self.event.type == pg.QUIT:
-                self.open = False
+                exit()
 
             self.update()  # update the game
             self.draw()  # draw the game
@@ -123,6 +123,8 @@ class Game_MP_local:
             self.window.update()
             time.sleep(3)
             self.main_menu()
+        if self.key[pg.K_ESCAPE]:
+            self.clear()
 
     def draw(self):
         self.window.screen.fill(("black"))

@@ -28,18 +28,20 @@ class MainMenu:
         self.button_play = Button(750, 50, 200, 70, "Singleplayer", self, self.game_sp)
         self.button_play_multi = Button(750, 160, 200, 70, "Multiplayer", self, self.game_mp)
         self.button_highscore = Button(750, 270, 200, 70, "Highscores", self, self.text_coming_soon_1.sprite.make_visible)
-        self.button_quit = Button(750, 380, 200, 70, "Quit", self, self.quit_game)
+        self.button_quit = Button(750, 380, 200, 70, "Quit", self, self.clear)
         self.main_menu_items = [self.button_play, self.button_play_multi, self.button_highscore, self.button_quit]
 
         # Singleplayer
-        self.button_play_normal = Button(750, 50, 200, 70, "Normal", self, lambda: {self.clear(), Game_SP(self.window, 0)})
-        self.button_play_2balls = Button(750, 160, 200, 70, "2 Balls", self, lambda: {self.clear(), Game_SP(self.window, 1)})
+        self.button_play_normal = Button(750, 50, 200, 70, "Normal", self,
+                                         lambda: {clear_lists(), Game_SP(self.window, 0), self.__init__(self.window)})
+        self.button_play_2balls = Button(750, 160, 200, 70, "2 Balls", self,
+                                         lambda: {clear_lists(), Game_SP(self.window, 1), self.__init__(self.window)})
         self.button_back_1 = Button(750, 380, 200, 70, "Go Back", self, self.main_menu)
         self.singleplayer_menu_items = [self.button_play_normal, self.button_play_2balls, self.button_back_1]
 
         # Multiplayer
         self.button_play_local_pvp = Button(750, 50, 200, 70, "Local PvP", self,
-                                            lambda: {self.clear(), Game_MP_local(self.window)})
+                                            lambda: {clear_lists(), Game_MP_local(self.window), self.__init__(self.window)})
         self.button_play_online_pvp = Button(750, 160, 200, 70, "Online PvP", self,
                                              self.text_coming_soon_2.sprite.make_visible)
         self.text_online_info1 = TextBox(745, 240, "You can change your online", self, APP_["FONT_2"])
@@ -62,7 +64,7 @@ class MainMenu:
             self.key = pg.key.get_pressed()
 
             if self.event.type == pg.QUIT:
-                self.quit_game()
+                self.clear()
 
             self.update()  # update the game
             self.draw()  # draw the menu
@@ -121,7 +123,3 @@ class MainMenu:
         for item in self.multiplayer_menu_items:
             item.make_visible()
 
-    def quit_game(self):
-        self.clear()
-        with open("DATA/userdata.ksv", "wb") as file:
-            pickle.dump(USERDATA, file, pickle.HIGHEST_PROTOCOL)

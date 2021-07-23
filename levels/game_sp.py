@@ -42,8 +42,8 @@ class Game_SP:
 
         self.text_top = TextBox(self.border_length, 0, "Lives: 0 | Score: 0 | Velocity: 0", self, APP_["FONT_2"])
         self.text_bottom = TextBox(self.border_length, self.window.height-self.border_length-1,
-                                   "Controls: w/s or arrow up/down. Start/Pause with space",
-                                   self, APP_["FONT_2"])
+                                   "Controls: w/s or arrow up/down (change to mouse in the options) - start/pause with space"
+                                   " - exit to main menu with ESC", self, APP_["FONT_2"])
 
         self.paddle = Paddle(self.window.height//2, self.border_length, self)
         self.ball = Ball(self.window.width-self.paddle.width*3, random.randint(
@@ -64,7 +64,7 @@ class Game_SP:
             self.key = pg.key.get_pressed()
 
             if self.event.type == pg.QUIT:
-                self.open = False
+                exit()
 
             self.update()  # update the game
             self.draw()  # draw the game
@@ -75,6 +75,8 @@ class Game_SP:
             self.update_normal()
         if self.mode == 1:
             self.update_fun()
+        if self.key[pg.K_ESCAPE]:
+            self.clear()
 
     def draw(self):
         self.window.screen.fill(("black"))
