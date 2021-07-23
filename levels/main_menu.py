@@ -8,6 +8,7 @@ from engine.text_input import *
 from levels.game_sp import *
 from levels.game_mp_local import *
 from levels.options import *
+from online.game_mp_online import *
 
 
 class MainMenu:
@@ -19,8 +20,6 @@ class MainMenu:
         self.text_main = TextBox(300, 290, f"PyPong {VERSION}", self)
         self.text_coming_soon_1 = TextBox(560, 285, "Coming Soon", self)
         self.text_coming_soon_1.sprite.make_invisible()
-        self.text_coming_soon_2 = TextBox(560, 175, "Coming in 2.4", self)
-        self.text_coming_soon_2.sprite.make_invisible()
         self.button_options = Button(10, 10, 150, 60, "Options", self, lambda: {clear_lists(), Options(self.window),
                                                                                 self.__init__(self.window)})
 
@@ -43,7 +42,7 @@ class MainMenu:
         self.button_play_local_pvp = Button(750, 50, 200, 70, "Local PvP", self,
                                             lambda: {clear_lists(), Game_MP_local(self.window), self.__init__(self.window)})
         self.button_play_online_pvp = Button(750, 160, 200, 70, "Online PvP", self,
-                                             self.text_coming_soon_2.sprite.make_visible)
+                                             lambda: {clear_lists(), Game_MP_online(self.window), self.__init__(self.window)})
         self.text_online_info1 = TextBox(745, 240, "You can change your online", self, APP_["FONT_2"])
         self.text_online_info2 = TextBox(752, 260, "appearance in the options", self, APP_["FONT_2"])
         self.multiplayer_menu_items = [self.button_play_local_pvp, self.button_play_online_pvp, self.text_online_info1,
@@ -97,7 +96,6 @@ class MainMenu:
         
     def game_sp(self):
         self.text_coming_soon_1.make_invisible()
-        self.text_coming_soon_2.make_invisible()
         for item in self.main_menu_items:
             item.make_invisible()
         for item in self.multiplayer_menu_items:
@@ -106,7 +104,6 @@ class MainMenu:
             item.make_visible()
 
     def main_menu(self):
-        self.text_coming_soon_2.make_invisible()
         for item in self.singleplayer_menu_items:
             item.make_invisible()
         for item in self.multiplayer_menu_items:

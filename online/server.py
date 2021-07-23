@@ -37,7 +37,7 @@ def client(conn):
             print(e)
             break
         print("Connection lost")
-        conn.close()
+    conn.close()
 
 
 while True:

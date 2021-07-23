@@ -17,7 +17,7 @@ class Window:
         self.intro.sprite.y = self.height//2 - self.intro.sprite.height // 2
         self.intro.sprite.draw()
         self.update()
-        sleep(2)
+        sleep(0.1)
         self.intro.remove()
 
 

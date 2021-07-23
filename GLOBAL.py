@@ -2,15 +2,17 @@ import PIL.Image as Image
 import PIL
 import pygame as pg
 import os
-from threading import *
 import webbrowser
 import random
 from time import sleep
 import pickle
 from sys import exit
+import selectors
+import time
+import threading
 
 AUTHOR = "Sebastian Reichl"
-VERSION = 2.3
+VERSION = 2.4
 
 pg.init()
 

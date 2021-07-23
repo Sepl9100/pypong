@@ -4,7 +4,7 @@ from engine.sprites import *
 
 
 class Entity:
-    def __init__(self, x, y, width, height, host, layer=0):
+    def __init__(self, x, y, width, height, host, layer=10):
         self.x = x
         self.y = y
         self.host = host

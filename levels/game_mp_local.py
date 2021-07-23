@@ -1,7 +1,3 @@
-import selectors
-import time
-import threading
-
 from GLOBAL import *
 from engine.sprites import *
 from engine.button import *
