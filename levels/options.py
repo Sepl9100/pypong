@@ -16,6 +16,7 @@ class Options:
         self.xoff = 0
         self.yoff = 0
         self.color_chosen = USERDATA["PADDLE_COL"]
+        self.mouse_toggled = USERDATA["MOUSE"]
 
         self.button_mainmenu = Button(10, 10, 170, 60, "main menu", self, lambda: {self.clear()})
         self.text_input_info = TextBox(self.window.width-200, 20, "online name", self, APP_["FONT_2"])
@@ -34,6 +35,9 @@ class Options:
         self.button_color_green = Button(350, 170, 150, 60, "green", self, lambda: {self.chose_color(COLS["GREEN"])})
         self.button_color_blue = Button(520, 170, 150, 60, "blue", self, lambda: {self.chose_color(COLS["BLUE"])})
 
+        self.button_toggle_mouse = ToggleButton(180, self.window.height//1.3, 400, 65, "use mouse to control paddle",
+                                                self, lambda: empty())
+        self.button_toggle_mouse.toggled = self.mouse_toggled
 
         self.button_save = Button(self.window.width-250, self.window.height//1.3, 200, 65,
                                   "save", self, self.safe_user_config)
@@ -63,6 +67,7 @@ class Options:
         self.button_color_green.draw_button(self.mx, self.my)
         self.button_color_blue.draw_button(self.mx, self.my)
         self.sprite_paddle_color.fill_color(self.color_chosen)
+        self.button_toggle_mouse.draw_button(self.mx, self.my)
 
     def draw(self):
         self.window.screen.fill(("black"))
@@ -76,6 +81,7 @@ class Options:
         clear_lists()
 
     def safe_user_config(self):
+        USERDATA["MOUSE"] = self.button_toggle_mouse.toggled
         USERDATA["USERNAME"] = self.input_name.text
         USERDATA["PADDLE_COL"] = self.color_chosen
         with open("DATA/userdata.ksv", "wb") as file:

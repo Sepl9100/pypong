@@ -93,14 +93,18 @@ class Game_SP:
         levels.main_menu.MainMenu(self.window)
 
     def paddle_update(self, key_press):
-        newy = 0
-        if key_press[pg.K_w] or key_press[pg.K_UP]:
-            newy -= 13
-        if key_press[pg.K_s] or key_press[pg.K_DOWN]:
-            newy += 13
-        if (key_press[pg.K_w] or key_press[pg.K_UP]) and (key_press[pg.K_s] or key_press[pg.K_DOWN]):
+        if USERDATA["MOUSE"]:
+            newy = pg.mouse.get_pos()[1]
+            self.paddle.entity.place(self.paddle.entity.x, newy)
+        else:
             newy = 0
-        self.paddle.entity.move(0, newy)
+            if key_press[pg.K_w] or key_press[pg.K_UP]:
+                newy -= 13
+            if key_press[pg.K_s] or key_press[pg.K_DOWN]:
+                newy += 13
+            if (key_press[pg.K_w] or key_press[pg.K_UP]) and (key_press[pg.K_s] or key_press[pg.K_DOWN]):
+                newy = 0
+            self.paddle.entity.move(0, newy)
 
     def update_normal(self):
         if self.ball.lives > 0:

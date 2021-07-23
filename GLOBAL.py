@@ -84,3 +84,7 @@ def clear_lists():
         for item in list:
             del item
         list.clear()
+
+
+def empty():
+    pass

@@ -116,3 +116,32 @@ class Button:
         self.shader4.make_visible()
         self.text_sprite.make_visible()
         self.is_visible = True
+
+
+class ToggleButton(Button):
+    def __init__(self, x, y, width, height, text, host, function):
+        super().__init__(x, y, width, height, text, host, function)
+        self.toggled = False
+
+    def draw_button(self, mx, my):
+        if self.is_visible:
+            if self.sprite.rect.collidepoint((mx, my)):
+                if pg.mouse.get_pressed()[0] == 1:
+                    self.clicked = True
+                    self.click_sprite()
+                elif pg.mouse.get_pressed()[0] == 0 and self.clicked:
+                    self.clicked = False
+                    self.toggled = not self.toggled
+                    self.function()
+                else:
+                    self.hover_sprite()
+            else:
+                self.button_sprite()
+                self.clicked = False
+            self.switch_button_color()
+
+    def switch_button_color(self):
+        if self.toggled:
+            self.button_color = COLS["GREEN"]
+        else:
+            self.button_color = COLS["BUTTON"]
