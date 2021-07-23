@@ -7,6 +7,7 @@ import webbrowser
 import random
 from time import sleep
 import pickle
+from sys import exit
 
 AUTHOR = "Sebastian Reichl"
 VERSION = 2.3
