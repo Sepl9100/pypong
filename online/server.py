@@ -18,6 +18,7 @@ print("Waiting for a connection. Server started successfully.")
 
 
 def client(conn):
+    conn.send(str.encode("connected"))
     reply = ""
     while True:
         try:

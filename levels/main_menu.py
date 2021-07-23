@@ -19,7 +19,7 @@ class MainMenu:
         self.text_main = TextBox(300, 290, f"PyPong {VERSION}", self)
         self.text_coming_soon_1 = TextBox(560, 285, "Coming Soon", self)
         self.text_coming_soon_1.sprite.make_invisible()
-        self.text_coming_soon_2 = TextBox(560, 175, "Coming Soon", self)
+        self.text_coming_soon_2 = TextBox(560, 175, "Coming in 2.4", self)
         self.text_coming_soon_2.sprite.make_invisible()
         self.button_options = Button(10, 10, 150, 60, "Options", self, lambda: {clear_lists(), Options(self.window),
                                                                                 self.__init__(self.window)})
