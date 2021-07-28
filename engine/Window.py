@@ -17,19 +17,37 @@ class Window:
         self.intro.sprite.x = self.width//2 - self.intro.sprite.width // 2
         self.intro.sprite.y = self.height//2 - self.intro.sprite.height // 2
         self.intro.sprite.draw()
-        self.intro_ai = AI(100, 100, 10, 10, self)
-        self.intro_ai.entity.sprite.fill_color(COLS["GREEN"])
-        self.intro_ai.goto(200, 200, True, True, True)
 
-        sleep_thread = threading.Thread(target=self.wait, args=(10, ))
+        self.intro_blocks = []
+        for i in range(10):
+            intro_block = AI(50 + 100*i, 20, 10, 10, self)
+            intro_block2 = AI(50 + 100*i, 480, 10, 10, self)
+            self.intro_blocks.append(intro_block)
+            self.intro_blocks.append(intro_block2)
+        for block in self.intro_blocks:
+            block.entity.sprite.fill_color(COLS["GREEN"])
+            block.goto(self.width//2, self.height//2, True)
+
+        sleep_thread = threading.Thread(target=self.wait, args=(20, ))
         sleep_thread.start()
         while not self.done:
             APP_["GAMECLOCK"].tick(APP_["MAX_FPS"])
-            self.screen.fill(("black"))
-            self.intro_ai.update(1)
-            self.intro_ai.entity.sprite.draw()
-            self.update()
+            self.event = pg.event.poll()
+            if self.event.type == pg.QUIT:
+                exit()
 
+            self.screen.fill(("black"))
+
+            for block in self.intro_blocks:
+                block.update(2)
+                block.entity.sprite.draw()
+            self.intro.sprite.draw()
+            self.update()
+            print(self.intro_blocks[19].entity.sprite.x)
+
+        for block in self.intro_blocks:
+            block.entity.sprite.delete()
+            del block
         self.intro.remove()
 
 
