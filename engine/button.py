@@ -143,5 +143,7 @@ class ToggleButton(Button):
     def switch_button_color(self):
         if self.toggled:
             self.button_color = COLS["GREEN"]
+            self.hover_color = COLS["BUTTON"]
         else:
             self.button_color = COLS["BUTTON"]
+            self.hover_color = COLS["GREEN"]

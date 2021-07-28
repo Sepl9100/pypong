@@ -2,7 +2,7 @@ from GLOBAL import *
 from online.network import *
 from engine.sprites import *
 from engine.entity import *
-
+from online.network import *
 
 class Game_MP_online:
     def __init__(self, window):
@@ -14,6 +14,10 @@ class Game_MP_online:
 
         self.xoff = 0
         self.yoff = 0
+
+        self.network = Network()
+        self.player = self.network.getPos()
+        print(self.player)
 
         while self.open:
             APP_["GAMECLOCK"].tick(APP_["MAX_FPS"])  # tick the clock
