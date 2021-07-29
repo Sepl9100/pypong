@@ -56,7 +56,7 @@ class AI:
             else:
                 self.entity.place(self.path[self.counter][0], self.path[self.counter][1])
                 self.counter -= 1
-                if self.rect.x <= self.x_original and self.rect.y <= self.y_original:
+                if self.rect.x == self.x_original and self.rect.y == self.y_original:
                     self.go_back = False
                     if not self.repeat:
                         self.needs_update = False

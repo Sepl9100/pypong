@@ -12,6 +12,7 @@ class Window:
         self.height = 500
         self.flags = pg.DOUBLEBUF | pg.HWSURFACE
         self.screen = pg.display.set_mode((self.width, self.height), self.flags, 32)
+
         # Fake Loading / Intro
         self.intro = TextBox(0, 0, "Powered by the KSV Engine", self, APP_["FONT_1"], COLS["WHITE"])
         self.intro.sprite.x = self.width//2 - self.intro.sprite.width // 2
@@ -25,10 +26,13 @@ class Window:
             self.intro_blocks.append(intro_block)
             self.intro_blocks.append(intro_block2)
         for block in self.intro_blocks:
-            block.entity.sprite.fill_color(COLS["GREEN"])
+            if self.intro_blocks.index(block) % 2 == 0:
+                block.entity.sprite.fill_color(COLS["RED"])
+            else:
+                block.entity.sprite.fill_color(COLS["GREEN"])
             block.goto(self.width//2, self.height//2, True)
 
-        sleep_thread = threading.Thread(target=self.wait, args=(20, ))
+        sleep_thread = threading.Thread(target=self.wait, args=(0.1, ))
         sleep_thread.start()
         while not self.done:
             APP_["GAMECLOCK"].tick(APP_["MAX_FPS"])
@@ -39,11 +43,10 @@ class Window:
             self.screen.fill(("black"))
 
             for block in self.intro_blocks:
-                block.update(2)
+                block.update(5.1)
                 block.entity.sprite.draw()
             self.intro.sprite.draw()
             self.update()
-            print(self.intro_blocks[19].entity.sprite.x)
 
         for block in self.intro_blocks:
             block.entity.sprite.delete()
