@@ -45,6 +45,8 @@ class Game_MP_online:
                 self.enemy_number = 1
             elif int(self.player) == 1:
                 self.enemy_number = 0
+            self.network.send(f'name={USERDATA["USERNAME"]}')
+
 
         network_thread = threading.Thread(target=self.network_update, daemon=True)
         network_thread.start()
