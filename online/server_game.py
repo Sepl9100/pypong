@@ -5,6 +5,7 @@ class ServerGame:
         self.ready = False
         self.id = id
         self.paddle_pos = [[0, 0], [0, 0]]
+        self.player_names = ["Not connected", "Not connected"]
         self.scores = [0, 0]
         self.lives = [5, 5]
 

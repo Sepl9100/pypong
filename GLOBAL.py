@@ -19,9 +19,11 @@ pg.init()
 
 APP_ = {
     "GAMECLOCK": pg.time.Clock(),
+    "NETWORK_CLOCK": pg.time.Clock(),
     "FONT_1": pg.font.SysFont('Bahnschrift', 30),
     "FONT_2": pg.font.SysFont('Bahnschrift', 17),
-    "MAX_FPS": 60
+    "MAX_FPS": 60,
+    "NETWORK_TPS": 30
 }
 
 BACKGROUNDS = {
