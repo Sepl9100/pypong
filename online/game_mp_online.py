@@ -10,8 +10,6 @@ class Game_MP_online:
         self.open = True
         self.window = window
 
-        self.test_box = Entity(self.window.width//2, self.window.height//2, 50, 50, self, 10)
-        self.test_box.sprite.fill_color(COLS["GREEN"])
 
         self.xoff = 0
         self.yoff = 0
@@ -46,14 +44,7 @@ class Game_MP_online:
             sleep(3)
             self.clear()
         else:
-            if self.key[pg.K_w]:
-                self.test_box.move(0, -10)
-            if self.key[pg.K_s]:
-                self.test_box.move(0, 10)
-            if self.key[pg.K_a]:
-                self.test_box.move(-10, 0)
-            if self.key[pg.K_d]:
-                self.test_box.move(10, 0)
+            pass
 
     def draw(self):
         self.window.screen.fill(("black"))
