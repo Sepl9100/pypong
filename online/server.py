@@ -39,8 +39,11 @@ def client(conn, p, gameID):
                     break
                 else:
                     if data != "get":
-                        game.update(p, data)
-
+                        i = data.index("=")
+                        if data.count("x=") == 1:
+                            game.update_x(p, data[i+1:])
+                        elif data.count("y=") == 1:
+                            game.update_y(p, data[i+1:])
                     reply = game
                     conn.sendall(pickle.dumps(reply))
             else:
