@@ -23,7 +23,7 @@ APP_ = {
     "FONT_1": pg.font.SysFont('Bahnschrift', 30),
     "FONT_2": pg.font.SysFont('Bahnschrift', 17),
     "MAX_FPS": 60,
-    "NETWORK_TPS": 32
+    "NETWORK_TPS": 64
 }
 
 BACKGROUNDS = {
