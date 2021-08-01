@@ -83,7 +83,7 @@ class MainMenu:
 
     def draw(self):
         # reset screen
-        self.window.screen.fill(("black"))
+        self.window.screen.fill(COLS["BLACK"])
         self.window.screen.blit(BACKGROUNDS["MAIN_MENU"], (0, 0))
         # draw all sprites
         for layer in RENDERLAYERS:

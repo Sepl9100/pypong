@@ -70,7 +70,7 @@ class Options:
         self.button_toggle_mouse.draw_button(self.mx, self.my)
 
     def draw(self):
-        self.window.screen.fill(("black"))
+        self.window.screen.fill(COLS["BLACK"])
         self.window.screen.blit(BACKGROUNDS["OPTIONS"], (0, 0))
         for layer in RENDERLAYERS:
             for sprite in layer:

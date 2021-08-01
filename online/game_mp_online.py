@@ -73,7 +73,7 @@ class Game_MP_online:
         if self.player is None:
             self.network_run = False
             clear_lists()
-            self.window.screen.fill(("black"))
+            self.window.screen.fill(COLS["BLACK"])
             self.infobox = TextBox(0, 0, "Server error/offline", self, APP_["FONT_1"], COLS["RED"])
             self.infobox.sprite.x = self.window.width // 2 - self.infobox.sprite.width // 2
             self.infobox.sprite.y = self.window.height // 2 - self.infobox.sprite.height // 2
@@ -110,7 +110,7 @@ class Game_MP_online:
 
 
     def draw(self):
-        self.window.screen.fill(("black"))
+        self.window.screen.fill(COLS["BLACK"])
         for layer in RENDERLAYERS:
             for sprite in layer:
                 sprite.draw()

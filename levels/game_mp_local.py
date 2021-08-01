@@ -122,7 +122,7 @@ class Game_MP_local:
             self.clear()
 
     def draw(self):
-        self.window.screen.fill(("black"))
+        self.window.screen.fill(COLS["BLACK"])
         for layer in RENDERLAYERS:
             for sprite in layer:
                 sprite.draw()

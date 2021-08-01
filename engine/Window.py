@@ -40,7 +40,7 @@ class Window:
             if self.event.type == pg.QUIT:
                 exit()
 
-            self.screen.fill(("black"))
+            self.screen.fill(COLS["BLACK"])
 
             for block in self.intro_blocks:
                 block.update(5.1)
