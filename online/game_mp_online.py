@@ -48,7 +48,7 @@ class Game_MP_online:
             elif int(self.player) == 1:
                 self.enemy_number = 0
             self.network.send(f'name={USERDATA["USERNAME"]}')
-            self.network.send(f'pcol={USERDATA["PADDLE_COL"]}')
+            self.game = self.network.send(f'pcol={USERDATA["PADDLE_COL"]}')
             self.test_box.sprite.fill_color(USERDATA["PADDLE_COL"])
 
             network_thread = threading.Thread(target=self.network_update, daemon=True)

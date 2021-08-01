@@ -30,7 +30,7 @@ def client(conn, p, gameID):
     reply = ""
     while True:
         try:
-            data = conn.recv(4096).decode()
+            data = conn.recv(2048).decode()
 
             if gameID in games:
                 game = games[gameID]
