@@ -46,8 +46,8 @@ def client(conn, p, gameID):
                             game.update_y(p, data[i+1:])
                         elif data.count("name=") == 1:
                             game.update_name(p, data[i+1:])
-                        elif data.count("paddle_col") == 1:
-                            game.update_paddle_col()
+                        elif data.count("pcol=") == 1:
+                            game.update_paddle_col(p, data[i+1:])
                     reply = game
                     conn.sendall(pickle.dumps(reply))
             else:

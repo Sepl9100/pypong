@@ -5,7 +5,7 @@ class ServerGame:
         self.ready = False
         self.id = id
         self.paddle_pos = [[0, 0], [0, 0]]
-        self.paddle_cols = [None, None]
+        self.paddle_cols = [(0, 0, 0), (0, 0, 0)]
         self.player_names = ["Not connected", "Not connected"]
         self.scores = [0, 0]
         self.lives = [5, 5]
@@ -23,7 +23,7 @@ class ServerGame:
         self.player_names[player] = name
 
     def update_paddle_col(self, player, color):
-
+        self.paddle_cols[player] = eval(color)
 
     def connected(self):
         return self.ready

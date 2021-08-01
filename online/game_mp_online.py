@@ -46,10 +46,10 @@ class Game_MP_online:
             elif int(self.player) == 1:
                 self.enemy_number = 0
             self.network.send(f'name={USERDATA["USERNAME"]}')
+            self.network.send(f'pcol={USERDATA["PADDLE_COL"]}')
 
-
-        network_thread = threading.Thread(target=self.network_update, daemon=True)
-        network_thread.start()
+            network_thread = threading.Thread(target=self.network_update, daemon=True)
+            network_thread.start()
 
         while self.open:
             APP_["GAMECLOCK"].tick(APP_["MAX_FPS"])  # tick the clock
@@ -59,6 +59,7 @@ class Game_MP_online:
             self.key = pg.key.get_pressed()
 
             if self.event.type == pg.QUIT:
+                self.clear()
                 exit()
 
             self.update()  # update the game
@@ -88,7 +89,7 @@ class Game_MP_online:
                 if self.key[pg.K_d]:
                     self.test_box.move(10, 0)
 
-
+                print(self.game.paddle_cols)
                 box2_cords = self.game.get_player_paddle_pos(self.enemy_number)
                 self.test_box2.place(box2_cords[0], box2_cords[1])
             except:
@@ -113,4 +114,5 @@ class Game_MP_online:
 
     def clear(self):
         self.open = False
+        self.network_run = False
         clear_lists()
