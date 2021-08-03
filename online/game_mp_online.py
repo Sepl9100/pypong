@@ -30,8 +30,7 @@ class Game_MP_online:
         self.text_top_mid = TextBox(0, 0, "Ball Velocity: 0", self, APP_["FONT_2"])
         self.text_top_mid.sprite.x = self.window.width // 2 - self.text_top_mid.sprite.width // 2
         self.text_bottom = TextBox(self.border_length, self.window.height - self.border_length - 1,
-                                   "Controls: Player 1: w/s - Player 2: arrow up/down - start/pause with space"
-                                   " - exit to main menu with ESC", self, APP_["FONT_2"])
+                                   "Controls: w/s or arrow up/down", self, APP_["FONT_2"])
 
         self.test_box = Entity(self.window.width // 2, self.window.height // 2, 10, 10, self, 10)
         self.test_box2 = Entity(self.window.width // 2, self.window.height // 2, 10, 10, self, 10)
@@ -95,6 +94,16 @@ class Game_MP_online:
                 self.test_box2.sprite.fill_color(self.game.paddle_cols[self.enemy_number])
                 box2_cords = self.game.get_player_paddle_pos(self.enemy_number)
                 self.test_box2.place(box2_cords[0], box2_cords[1])
+
+                self.text_top_mid.text = f"Ball Velocity: {abs(1)}"
+                self.text_top_left.text = f"{self.game.player_names[0]} - Lives: {self.game.lives[0]} " \
+                                          f"| Score: {self.game.scores[0]}"
+                self.text_top_right.text = f"{self.game.player_names[1]} - Lives: {self.game.lives[1]} " \
+                                           f"| Score: {self.game.scores[1]}"
+                self.text_top_right.sprite.x = self.window.width - self.text_top_right.sprite.width - self.border_length
+                self.text_top_mid.apply_changes()
+                self.text_top_left.apply_changes()
+                self.text_top_right.apply_changes()
             except:
                 self.player = None
 

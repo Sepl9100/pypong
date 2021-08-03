@@ -40,7 +40,8 @@ class Game_MP_local:
         self.text_top_mid = TextBox(0, 0, "Ball Velocity: 0", self, APP_["FONT_2"])
         self.text_top_mid.sprite.x = self.window.width // 2 - self.text_top_mid.sprite.width // 2
         self.text_bottom = TextBox(self.border_length, self.window.height - self.border_length - 1,
-                                   "Controls: w/s or arrow up/down", self, APP_["FONT_2"])
+                                   "Controls: Player 1: w/s - Player 2: arrow up/down - start/pause with space"
+                                   " - exit to main menu with ESC", self, APP_["FONT_2"])
 
         self.paddle_right = Paddle(self.window.height // 2, self.border_length, self)
         self.paddle_left = Paddle(self.window.height//2, self.border_length, self)
@@ -83,10 +84,10 @@ class Game_MP_local:
             self.paddle_update(self.key)
             self.update_ball()
             self.text_top_mid.text = f"Ball Velocity: {abs(self.ball.vx)}"
-            self.text_top_mid.apply_changes()
             self.text_top_left.text = f"Player 1 - Lives: {self.lives_p1} | Score: {self.score_p1}"
-            self.text_top_left.apply_changes()
             self.text_top_right.text = f"Player 2 - Lives: {self.lives_p2} | Score: {self.score_p2}"
+            self.text_top_mid.apply_changes()
+            self.text_top_left.apply_changes()
             self.text_top_right.apply_changes()
         else:
             self.window.screen.fill(("red"))
