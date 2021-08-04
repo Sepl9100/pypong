@@ -4,13 +4,18 @@ from engine.sprites import *
 from engine.entity import *
 from online.network import *
 from engine.text_box import *
+from assets.paddle import *
+from assets.ball import *
+from levels.game_mp_local import *
 
 
-class Game_MP_online:
+class Game_MP_online():
     def __init__(self, window):
         self.open = True
         self.network_run = True
         self.window = window
+        self.xoff = 0
+        self.yoff = 0
 
         self.border_length = 20
         self.border_top = Entity(0, 0, self.window.width, self.border_length, self)
@@ -32,10 +37,22 @@ class Game_MP_online:
         self.text_bottom = TextBox(self.border_length, self.window.height - self.border_length - 1,
                                    "Controls: w/s or arrow up/down", self, APP_["FONT_2"])
 
+        self.paddle_right = Paddle(self.window.height // 2, self.border_length, self)
+        self.paddle_left = Paddle(self.window.height//2, self.border_length, self)
+        self.paddle_left.entity.place(0, self.window.height//2-self.paddle_left.height//2)
+        self.paddles = [self.paddle_left, self.paddle_right]
 
-        self.xoff = 0
-        self.yoff = 0
+        index1 = random.randint(0, 1)
+        index2 = random.randint(0, 1)
+        multiplier = [-1, 1]
 
+        self.ball = Ball(self.window.width//2, self.window.height//2, 4*multiplier[index1], 4*multiplier[index2],
+                         self.borders, self.paddle_right, self)
+        self.ball.half_speed = 6
+        self.ball_speed_max = 10
+
+
+        # online stuff
         self.network = Network()
         self.player = self.network.getPos()
         if self.player is not None:
@@ -45,8 +62,9 @@ class Game_MP_online:
             elif int(self.player) == 1:
                 self.enemy_number = 0
             self.network.send(f'name={USERDATA["USERNAME"]}')
-            self.game = self.network.send(f'pcol={USERDATA["PADDLE_COL"]}')
-            #self.test_box.sprite.fill_color(USERDATA["PADDLE_COL"])
+            self.network.send(f'pcol={USERDATA["PADDLE_COL"]}')
+            self.game = self.network.send("get")
+
 
             network_thread = threading.Thread(target=self.network_update, daemon=True)
             network_thread.start()
@@ -79,24 +97,18 @@ class Game_MP_online:
             sleep(3)
             self.clear()
         else:
-            try:
+            self.ball.moving = True
+            self.text_top_mid.text = f"Ball Velocity: {abs(1)}"
+            self.text_top_left.text = f"{self.game.player_names[0]} - Lives: {self.game.lives[0]} " \
+                                      f"| Score: {self.game.scores[0]}"
+            self.text_top_right.text = f"{self.game.player_names[1]} - Lives: {self.game.lives[1]} " \
+                                       f"| Score: {self.game.scores[1]}"
+            self.text_top_right.sprite.x = self.window.width - self.text_top_right.sprite.width - self.border_length
+            self.text_top_mid.apply_changes()
+            self.text_top_left.apply_changes()
+            self.text_top_right.apply_changes()
 
 
-                #self.test_box2.sprite.fill_color(self.game.paddle_cols[self.enemy_number])
-                box2_cords = self.game.get_player_paddle_pos(self.enemy_number)
-                #self.test_box2.place(box2_cords[0], box2_cords[1])
-
-                self.text_top_mid.text = f"Ball Velocity: {abs(1)}"
-                self.text_top_left.text = f"{self.game.player_names[0]} - Lives: {self.game.lives[0]} " \
-                                          f"| Score: {self.game.scores[0]}"
-                self.text_top_right.text = f"{self.game.player_names[1]} - Lives: {self.game.lives[1]} " \
-                                           f"| Score: {self.game.scores[1]}"
-                self.text_top_right.sprite.x = self.window.width - self.text_top_right.sprite.width - self.border_length
-                self.text_top_mid.apply_changes()
-                self.text_top_left.apply_changes()
-                self.text_top_right.apply_changes()
-            except:
-                self.player = None
 
     def network_update(self):
         while self.network_run:
