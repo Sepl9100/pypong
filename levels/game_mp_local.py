@@ -24,8 +24,8 @@ class Game_MP_local:
         self.border_bottom = Entity(0, self.window.height - self.border_length, self.window.width, self.border_length,
                                     self)
 
-        self.border_top.sprite.fill_color("white")
-        self.border_bottom.sprite.fill_color("white")
+        self.border_top.sprite.fill_color(COLS["WHITE"])
+        self.border_bottom.sprite.fill_color(COLS["WHITE"])
 
         self.border_top.give_collision()
         self.border_bottom.give_collision()

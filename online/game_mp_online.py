@@ -16,8 +16,8 @@ class Game_MP_online:
         self.border_top = Entity(0, 0, self.window.width, self.border_length, self)
         self.border_bottom = Entity(0, self.window.height - self.border_length, self.window.width, self.border_length,
                                     self)
-        self.border_top.sprite.fill_color("white")
-        self.border_bottom.sprite.fill_color("white")
+        self.border_top.sprite.fill_color(COLS["WHITE"])
+        self.border_bottom.sprite.fill_color(COLS["WHITE"])
         self.border_top.give_collision()
         self.border_bottom.give_collision()
         self.borders = []
@@ -32,8 +32,6 @@ class Game_MP_online:
         self.text_bottom = TextBox(self.border_length, self.window.height - self.border_length - 1,
                                    "Controls: w/s or arrow up/down", self, APP_["FONT_2"])
 
-        self.test_box = Entity(self.window.width // 2, self.window.height // 2, 10, 10, self, 10)
-        self.test_box2 = Entity(self.window.width // 2, self.window.height // 2, 10, 10, self, 10)
 
         self.xoff = 0
         self.yoff = 0
@@ -48,7 +46,7 @@ class Game_MP_online:
                 self.enemy_number = 0
             self.network.send(f'name={USERDATA["USERNAME"]}')
             self.game = self.network.send(f'pcol={USERDATA["PADDLE_COL"]}')
-            self.test_box.sprite.fill_color(USERDATA["PADDLE_COL"])
+            #self.test_box.sprite.fill_color(USERDATA["PADDLE_COL"])
 
             network_thread = threading.Thread(target=self.network_update, daemon=True)
             network_thread.start()
@@ -82,18 +80,11 @@ class Game_MP_online:
             self.clear()
         else:
             try:
-                if self.key[pg.K_w]:
-                    self.test_box.move(0, -10)
-                if self.key[pg.K_s]:
-                    self.test_box.move(0, 10)
-                if self.key[pg.K_a]:
-                    self.test_box.move(-10, 0)
-                if self.key[pg.K_d]:
-                    self.test_box.move(10, 0)
 
-                self.test_box2.sprite.fill_color(self.game.paddle_cols[self.enemy_number])
+
+                #self.test_box2.sprite.fill_color(self.game.paddle_cols[self.enemy_number])
                 box2_cords = self.game.get_player_paddle_pos(self.enemy_number)
-                self.test_box2.place(box2_cords[0], box2_cords[1])
+                #self.test_box2.place(box2_cords[0], box2_cords[1])
 
                 self.text_top_mid.text = f"Ball Velocity: {abs(1)}"
                 self.text_top_left.text = f"{self.game.player_names[0]} - Lives: {self.game.lives[0]} " \
@@ -111,8 +102,8 @@ class Game_MP_online:
         while self.network_run:
             APP_["NETWORK_CLOCK"].tick(APP_["NETWORK_TPS"])
             try:
-                self.network.send(f"x={self.test_box.sprite.x}")
-                self.network.send(f"y={self.test_box.sprite.y}")
+                self.network.send(f"x={0}")
+                self.network.send(f"y={0}")
                 self.game = self.network.send("get")
             except:
                 self.player = None
