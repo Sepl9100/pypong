@@ -116,7 +116,7 @@ class Game_SP:
             self.text_top.text = f"Lives: {self.ball.lives} | Score: {self.ball.score} | Velocity: {abs(self.ball.vx)}"
             self.text_top.apply_changes()
         else:
-            self.window.screen.fill(("red"))
+            self.window.screen.fill(COLS["RED"])
             self.text_game_over = TextBox(self.window.width//2.5, self.window.height//2.5, "GAME OVER!", self, APP_["FONT_1"])
             self.text_game_over.sprite.draw()
             pg.display.flip()
@@ -162,7 +162,7 @@ class Game_SP:
                                  f" | Velocity Ball 1: {abs(self.ball.vx)} | Velocity Ball 2: {abs(self.ball2.vx)}"
             self.text_top.apply_changes()
         else:
-            self.window.screen.fill(("red"))
+            self.window.screen.fill(COLS["RED"])
             self.text_game_over = TextBox(self.window.width//2.5, self.window.height//2.5, "GAME OVER!", self, APP_["FONT_1"])
             self.text_game_over.sprite.draw()
             pg.display.flip()

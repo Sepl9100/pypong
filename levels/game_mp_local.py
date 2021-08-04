@@ -90,7 +90,7 @@ class Game_MP_local:
             self.text_top_left.apply_changes()
             self.text_top_right.apply_changes()
         else:
-            self.window.screen.fill(("red"))
+            self.window.screen.fill(COLS["RED"])
             if self.score_p1 > self.score_p2:
                 winner = 1
             elif self.score_p2 > self.score_p1:
