@@ -44,6 +44,8 @@ class Entity:
             else:
                 self.sprite.x += xadd
                 self.sprite.y += yadd
+        self.x = self.sprite.x
+        self.y = self.sprite.y
         return True
 
     def place(self, xdest, ydest):

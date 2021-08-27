@@ -116,14 +116,37 @@ class Game_MP_online():
             self.text_top_right.apply_changes()
 
 
+            # Paddle Movement
+            newy = 0
+            if self.key[pg.K_w] or self.key[pg.K_UP]:
+                newy -= 13
+            if self.key[pg.K_s] or self.key[pg.K_DOWN]:
+                newy += 13
+            if self.key[pg.K_w] and self.key[pg.K_s]:
+                newy = 0
+            if self.key[pg.K_UP] and self.key[pg.K_DOWN]:
+                newy = 0
+            self.paddles[int(self.player)].entity.move(0, newy)
+
+            # Enemy Paddle Auto Movement
+            enemy_newy = 0
+            if self.game.paddle_dir[self.enemy_number] < 0:
+                enemy_newy -= 13
+            elif self.game.paddle_dir[self.enemy_number] > 0:
+                enemy_newy += 13
+            self.paddles[self.enemy_number].entity.move(0, enemy_newy)
+
+
 
     def network_update(self):
         while self.network_run:
             APP_["NETWORK_CLOCK"].tick(APP_["NETWORK_TPS"])
             try:
-                self.network.send(f"x={0}")
-                self.network.send(f"y={0}")
+                self.network.send(f"x={self.paddles[int(self.player)].entity.x}")
+                self.network.send(f"y={self.paddles[int(self.player)].entity.y}")
                 self.game = self.network.send("get")
+                self.paddles[self.enemy_number].entity.place(self.game.paddle_pos[self.enemy_number][0],
+                                                             self.game.paddle_pos[self.enemy_number][1])
             except:
                 self.player = None
 
