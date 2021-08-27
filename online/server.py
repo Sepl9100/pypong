@@ -4,7 +4,7 @@ from _thread import *
 import sys
 from online.server_game import *
 
-server = "10.0.0.14"
+server = "localhost"
 port = 5555
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -40,7 +40,9 @@ def client(conn, p, gameID):
                 else:
                     if data != "get":
                         i = data.index("=")
-                        if data.count("x=") == 1:
+                        if data.count("ready") == 1:
+                            game.update_ready(p)
+                        elif data.count("x=") == 1:
                             game.update_x(p, data[i+1:])
                         elif data.count("y=") == 1:
                             game.update_y(p, data[i+1:])

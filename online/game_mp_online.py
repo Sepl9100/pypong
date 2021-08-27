@@ -97,13 +97,20 @@ class Game_MP_online():
             sleep(3)
             self.clear()
         else:
-            self.ball.moving = True
+            self.ball.moving = self.game.ready
+            rdy0, rdy1 = "", ""
+            if not self.game.player_ready[0]:
+                rdy0 += "not "
+            if not self.game.player_ready[1]:
+                rdy1 += "not "
+
             self.text_top_mid.text = f"Ball Velocity: {abs(1)}"
             self.text_top_left.text = f"{self.game.player_names[0]} - Lives: {self.game.lives[0]} " \
-                                      f"| Score: {self.game.scores[0]}"
+                                      f"| Score: {self.game.scores[0]} - {rdy0}ready"
             self.text_top_right.text = f"{self.game.player_names[1]} - Lives: {self.game.lives[1]} " \
-                                       f"| Score: {self.game.scores[1]}"
+                                       f"| Score: {self.game.scores[1]} - {rdy1}ready"
             self.text_top_right.sprite.x = self.window.width - self.text_top_right.sprite.width - self.border_length
+
             self.text_top_mid.apply_changes()
             self.text_top_left.apply_changes()
             self.text_top_right.apply_changes()
