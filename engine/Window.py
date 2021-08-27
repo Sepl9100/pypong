@@ -32,7 +32,7 @@ class Window:
                 block.entity.sprite.fill_color(COLS["GREEN"])
             block.goto(self.width//2, self.height//2, True)
 
-        sleep_thread = threading.Thread(target=self.wait, args=(0.1, ))
+        sleep_thread = threading.Thread(target=self.wait, args=(3, ))
         sleep_thread.start()
         while not self.done:
             APP_["GAMECLOCK"].tick(APP_["MAX_FPS"])
