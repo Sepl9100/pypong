@@ -61,10 +61,10 @@ class Game_MP_online():
                 self.enemy_number = 1
             elif int(self.player) == 1:
                 self.enemy_number = 0
+
             self.network.send(f'name={USERDATA["USERNAME"]}')
             self.network.send(f'pcol={USERDATA["PADDLE_COL"]}')
             self.game = self.network.send("get")
-
 
             network_thread = threading.Thread(target=self.network_update, daemon=True)
             network_thread.start()
@@ -130,9 +130,9 @@ class Game_MP_online():
 
             # Enemy Paddle Auto Movement
             enemy_newy = 0
-            if self.game.paddle_dir[self.enemy_number] < 0:
+            if self.enemy_direction < 0:
                 enemy_newy -= 13
-            elif self.game.paddle_dir[self.enemy_number] > 0:
+            elif self.enemy_direction > 0:
                 enemy_newy += 13
             self.paddles[self.enemy_number].entity.move(0, enemy_newy)
 
@@ -142,11 +142,20 @@ class Game_MP_online():
         while self.network_run:
             APP_["NETWORK_CLOCK"].tick(APP_["NETWORK_TPS"])
             try:
+                y_enemy_old = self.game.paddle_pos[self.enemy_number][1]
+
                 self.network.send(f"x={self.paddles[int(self.player)].entity.x}")
                 self.network.send(f"y={self.paddles[int(self.player)].entity.y}")
                 self.game = self.network.send("get")
+
+                if self.game.paddle_pos[self.enemy_number][1] > y_enemy_old:
+                    self.enemy_direction = 1
+                elif self.game.paddle_pos[self.enemy_number][1] < y_enemy_old:
+                    self.enemy_direction = -1
+                else:
+                    self.enemy_direction = 0
                 self.paddles[self.enemy_number].entity.place(self.game.paddle_pos[self.enemy_number][0],
-                                                             self.game.paddle_pos[self.enemy_number][1])
+                                                                 self.game.paddle_pos[self.enemy_number][1])
             except:
                 self.player = None
 
