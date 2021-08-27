@@ -4,7 +4,7 @@ from _thread import *
 import sys
 from online.server_game import *
 
-server = "localhost"
+server = "10.0.0.14"
 port = 5555
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
