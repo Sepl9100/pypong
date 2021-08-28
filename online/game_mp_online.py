@@ -61,6 +61,7 @@ class Game_MP_online():
                 self.enemy_number = 1
             elif int(self.player) == 1:
                 self.enemy_number = 0
+            self.enemy_direction = 0
 
             self.network.send(f'name={USERDATA["USERNAME"]}')
             self.network.send(f'pcol={USERDATA["PADDLE_COL"]}')

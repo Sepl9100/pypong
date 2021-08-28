@@ -17,7 +17,7 @@ class MainMenu:
         self.window = window
 
         # Text / Global
-        self.text_main = TextBox(300, 290, f"PyPong {VERSION}", self)
+        self.text_main = TextBox(300, 290, f"PyPong {VERSION}       TEST-VERSION", self)
         self.text_coming_soon_1 = TextBox(560, 285, "Coming Soon", self)
         self.text_coming_soon_1.sprite.make_invisible()
         self.button_options = Button(10, 10, 150, 60, "Options", self, lambda: {clear_lists(), Options(self.window),
